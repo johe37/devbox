@@ -17,6 +17,8 @@
         - git
         - zsh
         - tmux
+        - jq
+        - nmap
 
     - name: Install oh-my-zsh
       vars:
@@ -60,7 +62,7 @@
     - name: Create config file ~/.tmux
       template:
         src: tmux.j2
-        dest: ~/.tmux
+        dest: ~/.tmux.conf
 
     - name: Create folder ~/.{{ username }}/zshrc.d
       file:
