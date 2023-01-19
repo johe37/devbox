@@ -1,2 +1,2 @@
-# fix-my-shell
-Fix my shell
+# fix-my-devstation
+bash/ansible scripts for setting up my devstation
