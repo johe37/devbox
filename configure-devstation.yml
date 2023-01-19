@@ -70,8 +70,9 @@
         state: directory
 
     - name: Create config file ~/.{{ username }}/zshrc.d/{{ username }}-conf.sh
-      file:
-        path: ~/.{{ username }}/zshrc.d/{{ username }}-conf.sh
+      template:
+        src: conf.j2
+        dest: ~/.{{ username }}/zshrc.d/{{ username }}-conf.sh
 
     - name: Set default shell
       become: true
