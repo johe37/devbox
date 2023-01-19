@@ -1,9 +1,9 @@
-- name: Configure shell
+- name: Configure devstation
   hosts: localhost
   tags: shell
   vars:
     username: johe
-    default_shell: zsh
+    default_shell: /usr/bin/zsh
     oh_my_zsh_theme: powerlevel10k/powerlevel10k
   connection: local
   tasks:
@@ -16,6 +16,7 @@
         - vim
         - git
         - zsh
+        - tmux
 
     - name: Install oh-my-zsh
       vars:
@@ -56,6 +57,11 @@
         src: vimrc.j2
         dest: ~/.vimrc
 
+    - name: Create config file ~/.tmux
+      template:
+        src: tmux.j2
+        dest: ~/.tmux
+
     - name: Create folder ~/.{{ username }}/zshrc.d
       file:
         path: ~/.{{ username }}/zshrc.d
@@ -66,4 +72,3 @@
       user:
         name: "{{ username }}"
         shell: "{{ default_shell }}"
-
