@@ -67,6 +67,10 @@
         path: ~/.{{ username }}/zshrc.d
         state: directory
 
+    - name: Create config file ~/.{{ username }}/zshrc.d/{{ username }}-conf.sh
+      file:
+        path: ~/.{{ username }}/zshrc.d/{{ username }}-conf.sh
+
     - name: Set default shell
       become: true
       user:
