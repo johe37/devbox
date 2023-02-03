@@ -1,8 +1,3 @@
 # Lets me jump between words with option + left/right arrow
 bindkey "^[f" forward-word
 bindkey "^[b" backward-word
-
-# Get tmux from the get go!
-if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-  tmux attach-session -t -MAIN- || tmux new-session -s -MAIN-
-fi
