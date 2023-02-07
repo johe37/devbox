@@ -5,6 +5,7 @@
     username: johe
     default_shell: /usr/bin/zsh
     oh_my_zsh_theme: powerlevel10k/powerlevel10k
+    private_github_key: ~/.ssh/github
   connection: local
   tasks:
     - name: Install packages
@@ -73,6 +74,17 @@
       template:
         src: conf.j2
         dest: ~/.{{ username }}/zshrc.d/{{ username }}-conf.sh
+
+    - name: Create folder ~/.ssh/config
+      file:
+        path: ~/.ssh
+        state: directory
+
+    - name: Create ssh config file
+      when: private_github_key
+      template:
+        src: ssh.j2
+        dest: ~/.ssh/config
 
     - name: Set default shell
       become: true
