@@ -20,6 +20,7 @@
         - tmux
         - jq
         - nmap
+        - curl
 
     - name: Install oh-my-zsh
       vars:
