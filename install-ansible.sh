@@ -9,24 +9,29 @@ if [[ $# != 1 ]]; then
   exit 1
 fi
 
-if [[ "$1" == "mac" ]]; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-  arch | grep "arm64" && eval $(/opt/homebrew/bin/brew shellenv) && echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zshrc || echo ""
-  python3 -m venv ~/.venv/default
-  source ~/.venv/default/bin/activate
-  python -m pip install -U pip
-  pip install ansible
+python_version="python3.10"
+venv="venv"
 
-elif [[ "$1" == "alma" ]]; then
-  sudo dnf install -y epel-release
-  sudo dnf groupinstall -y "Development tools"
-  sudo dnf install -y python39 gcc-c++
-  python3 -m venv ~/.venv/default
-  source ~/.venv/default/bin/activate
-  python -m pip install -U pip
-  pip install ansible
+case "$1" in
+  mac)
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    arch | grep "arm64" && eval "$(/opt/homebrew/bin/brew shellenv)" && echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zshrc
+    ;;
+  alma)
+    sudo dnf install -y epel-release
+    sudo dnf groupinstall -y "Development tools"
+    sudo dnf install -y "$python_version" "gcc-c++"
+    ;;
+  ubuntu)
+    sudo apt install -y "$python_version" "$python_version-venv"
+    ;;
+  *)
+    >&2 echo "Unknown platform $platform"
+    exit 2
+    ;;
+esac
 
-else
-  echo "Unknown platform $1" > /dev/stderr
-  exit 2
-fi
+python3 -m venv $venv
+source $venv/bin/activate
+python -m pip install -U pip
+pip install ansible-core
