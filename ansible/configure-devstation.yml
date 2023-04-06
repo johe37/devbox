@@ -1,26 +1,17 @@
+---
 - name: Configure devstation
   hosts: localhost
-  tags: shell
-  vars:
-    username: johe
-    default_shell: /usr/bin/zsh
-    oh_my_zsh_theme: powerlevel10k/powerlevel10k
-    private_github_key: ~/.ssh/github
   connection: local
+  tags: shell
+  vars_files:
+    - vars/devstation.yml
   tasks:
     - name: Install packages
       become: yes
       ansible.builtin.package:
         name: "{{ item }}"
         state: present
-      loop:
-        - vim
-        - git
-        - zsh
-        - tmux
-        - jq
-        - nmap
-        - curl
+      loop: "{{ packages_to_install }}"
 
     - name: Install oh-my-zsh
       vars:
@@ -47,9 +38,20 @@
 
     - name: Install powerlevel10k
       when: not powerlevel10k_res.stat.exists
-      vars:
-        powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
       ansible.builtin.shell: git clone --depth=1 {{ powerlevel10k_url }} ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+
+    - name: Prepare fonts directory
+      when: powerlevel_10k_fonts
+      ansible.builtin.file:
+        path: ~/.local/share/fonts
+        state: directory
+        
+    - name: Download fonts
+      ansible.builtin.get_url:
+        url: "{{ item }}"
+        dest: ~/.local/share/fonts
+        mode: '0644'
+      loop: "{{ powerlevel_10k_fonts }}"
 
     - name: Create config file ~/.zshrc
       template:
@@ -92,3 +94,9 @@
       user:
         name: "{{ username }}"
         shell: "{{ default_shell }}"
+
+    - name: Configure git globally
+      ansible.builtin.command:
+        cmd: git config --global {{ item.key }} {{ item.value }}
+      loop: "{{ git_config }}"
+...

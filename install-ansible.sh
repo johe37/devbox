@@ -9,7 +9,7 @@ if [[ $# != 1 ]]; then
   exit 1
 fi
 
-python_version="python3.10"
+python_version="python3" # Will download latest python3.*
 venv="venv"
 
 case "$1" in
@@ -17,12 +17,11 @@ case "$1" in
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     arch | grep "arm64" && eval "$(/opt/homebrew/bin/brew shellenv)" && echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zshrc
     ;;
-  alma)
-    sudo dnf install -y epel-release
+  redhat)
     sudo dnf groupinstall -y "Development tools"
     sudo dnf install -y "$python_version" "gcc-c++"
     ;;
-  ubuntu)
+  debian)
     sudo apt install -y "$python_version" "$python_version-venv"
     ;;
   *)
