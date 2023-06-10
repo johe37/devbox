@@ -1,4 +1,4 @@
-# fix-my-devstation
+# devbox
 bash/ansible scripts för att preppa min arbetsstation
 
 ## Installation
