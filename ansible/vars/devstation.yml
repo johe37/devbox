@@ -18,7 +18,7 @@ oh_my_zsh_theme: powerlevel10k/powerlevel10k
 private_github_key: ~/.ssh/github
 git_config:
   - key: user.name
-    value: "johellgren"
+    value: "{{ username }}"
   - key: user.email
     value: "{{ username }}@example.com"
   - key: core.editor
