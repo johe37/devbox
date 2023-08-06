@@ -7,11 +7,21 @@
     - vars/devstation.yml
   tasks:
     - name: Install packages
+      when: ansible_os_family == 'Debian'
       become: yes
       ansible.builtin.package:
         name: "{{ item }}"
         state: present
       loop: "{{ packages_to_install }}"
+
+    - name: Install packages
+      when: ansible_os_family == 'Darwin'
+      community.general.homebrew:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages_to_install }}"
+      register: result
+      until: result is successful
 
     - name: Install oh-my-zsh
       vars:

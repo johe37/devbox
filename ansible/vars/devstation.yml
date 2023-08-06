@@ -7,7 +7,7 @@ packages_to_install:
   - jq
   - nmap
   - curl
-default_shell: /usr/bin/zsh
+default_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
 powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
 powerlevel_10k_fonts:
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
@@ -15,7 +15,7 @@ powerlevel_10k_fonts:
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 oh_my_zsh_theme: powerlevel10k/powerlevel10k
-private_github_key: ~/.ssh/github
+private_github_key: ~/.ssh/github # Kan att behöva ändras
 git_config:
   - key: user.name
     value: "{{ username }}"
