@@ -1,0 +1,64 @@
+---
+- name: Install oh-my-zsh
+  vars:
+    omz_url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+  ansible.builtin.shell: sh -c "$(curl -fsSL {{ omz_url }})" "" --unattended
+  args:
+    creates: ~/.oh-my-zsh	
+
+- name: Check if zsh-syntax-highlightning repo exists
+  ansible.builtin.stat:
+    path: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+  register: zsh_syntax_res
+
+- name: Install zsh-syntax-highlightning
+  when: not zsh_syntax_res.stat.exists
+  vars:
+    zsh_syntax_url: https://github.com/zsh-users/zsh-syntax-highlighting.git
+  ansible.builtin.shell: git clone {{ zsh_syntax_url }} {{ zsh_syntax_res.stat.path }}
+
+- name: Check if powerlevel10k repo exists
+  ansible.builtin.stat:
+    path: ~/.oh-my-zsh/custom/themes/powerlevel10k
+  register: powerlevel10k_res
+
+- name: Install powerlevel10k
+  when: not powerlevel10k_res.stat.exists
+  ansible.builtin.command: 
+    cmd: git clone --depth=1 {{ dev_powerlevel10k_url }} {{ powerlevel10k_res.stat.path }}
+  changed_when: true
+
+- name: Prepare fonts directory
+  when: dev_powerlevel_10k_fonts
+  ansible.builtin.file:
+    path: ~/.local/share/fonts
+    state: directory
+    
+- name: Download fonts
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: ~/.local/share/fonts
+    mode: '0644'
+  loop: "{{ dev_powerlevel_10k_fonts }}"
+
+- name: Create config file ~/.zshrc
+  ansible.builtin.template:
+    src: zshrc.j2
+    dest: ~/.zshrc
+
+- name: Create folder {{ dev_shell_config_folder }}
+  ansible.builtin.file:
+    path: "{{ dev_shell_config_folder }}"
+    state: directory
+
+- name: Create config file {{ dev_shell_config_file }}
+  ansible.builtin.template:
+    src: conf.j2
+    dest: "{{ dev_shell_config_file }}"
+
+- name: Set default shell
+  become: true
+  ansible.builtin.user:
+    name: "{{ dev_user }}"
+    shell: "{{ dev_shell }}"
+...

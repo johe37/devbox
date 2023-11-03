@@ -1,5 +1,5 @@
-# Include $HOME/.{{ username }}/zshrc.d/* user settings
-for file in ~/.{{ username }}/zshrc.d/* ; do source "$file" ; done
+# Include {{ dev_shell_config_folder }}/* user settings
+for file in {{ dev_shell_config_folder }}/* ; do source "$file" ; done
 
 # Get tmux from the get go!
 #if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
@@ -18,7 +18,7 @@ export ZSH=$HOME/.oh-my-zsh
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="{{ oh_my_zsh_theme }}"
+ZSH_THEME="{{ dev_oh_my_zsh_theme }}"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load

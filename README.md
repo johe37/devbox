@@ -11,7 +11,13 @@ du vill ändra några variabler.
 
 source venv/bin/activate
 
-ansible-playbook ansible/configure-devstation.yml --ask-become-pass
+ansible-playbook ansible/configure.yml --ask-become-pass
+```
+
+Vill du skippa något i `ansible/configure.yml`?
+
+```
+ansible-playbook ansible/configure.yml --ask-become-pass --skip-tags=git,ssh
 ```
 
 Efter att playbooken har körts så kan man behöva logga in och ut.

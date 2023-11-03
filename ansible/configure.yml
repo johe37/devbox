@@ -1,0 +1,50 @@
+---
+- name: Configure devstation
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars_files:
+    - vars/devstation.yml
+  tasks:
+    - name: Include tasks/install-packages.yml
+      tags: packages
+      ansible.builtin.include_tasks:
+        file: tasks/install-packages.yml
+        apply:
+          tags: packages
+
+    - name: Include tasks/configure-shell.yml
+      tags: shell
+      ansible.builtin.include_tasks:
+        file: tasks/configure-shell.yml
+        apply:
+          tags: shell
+
+    - name: Include tasks/configure-vim.yml
+      tags: vim
+      ansible.builtin.include_tasks:
+        file: tasks/configure-vim.yml
+        apply:
+          tags: vim
+
+    - name: Include tasks/configure-tmux.yml
+      tags: tmux
+      ansible.builtin.include_tasks:
+        file: tasks/configure-tmux.yml
+        apply:
+          tags: tmux
+
+    - name: Include tasks/configure-ssh.yml
+      tags: ssh
+      ansible.builtin.include_tasks:
+        file: tasks/configure-ssh.yml
+        apply:
+          tags: ssh
+
+    - name: Include tasks/configure-git.yml
+      tags: git
+      ansible.builtin.include_tasks:
+        file: tasks/configure-git.yml
+        apply:
+          tags: git
+...

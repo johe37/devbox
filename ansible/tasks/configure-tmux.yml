@@ -1,0 +1,6 @@
+---
+- name: Create config file ~/.tmux
+  template:
+    src: tmux.j2
+    dest: ~/.tmux.conf
+...

@@ -1,0 +1,6 @@
+---
+- name: Create config file ~/.vimrc
+  ansible.builtin.template:
+    src: vimrc.j2
+    dest: ~/.vimrc
+...

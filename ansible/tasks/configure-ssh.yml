@@ -1,0 +1,11 @@
+---
+- name: Create folder ~/.ssh/config
+  ansible.builtin.file:
+    path: ~/.ssh
+    state: directory
+
+- name: Create ssh config file
+  ansible.builtin.template:
+    src: ssh.j2
+    dest: ~/.ssh/config
+...

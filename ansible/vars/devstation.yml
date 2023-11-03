@@ -1,5 +1,5 @@
-username: "{{ lookup('env', 'USER') }}"
-packages_to_install:
+dev_user: "{{ lookup('env', 'USER') }}"
+dev_packages:
   - vim
   - git
   - zsh
@@ -7,19 +7,29 @@ packages_to_install:
   - jq
   - nmap
   - curl
-default_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
-powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
-powerlevel_10k_fonts:
+  - make
+  - htop
+
+dev_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
+dev_shell_config_folder: ~/.config/{{ dev_user }}
+dev_shell_config_file: "{{ dev_shell_config_folder }}/conf.sh"
+dev_oh_my_zsh_theme: powerlevel10k/powerlevel10k
+dev_powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
+dev_powerlevel_10k_fonts:
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-oh_my_zsh_theme: powerlevel10k/powerlevel10k
-private_github_key: ~/.ssh/github # Kan att behöva ändras
-git_config:
+
+dev_private_github_key: ~/.ssh/github # Kan behövas att ändras
+
+dev_git_config:
   - key: user.name
-    value: "{{ username }}"
+    value: "{{ dev_git_config_user | default(dev_user) }}"
   - key: user.email
-    value: "{{ username }}@example.com"
+    value: "{{ dev_git_config_email | default(dev_user + '@example.com') }}"
   - key: core.editor
     value: vim
+
+dev_git_config_user: ~
+dev_git_config_email: ~
