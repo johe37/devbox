@@ -9,6 +9,8 @@ dev_packages:
   - curl
   - make
   - htop
+  - ripgrep
+  - unzip
 
 dev_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
 dev_shell_config_folder: ~/.config/{{ dev_user }}
