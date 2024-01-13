@@ -15,7 +15,7 @@
   when: not zsh_syntax_res.stat.exists
   vars:
     zsh_syntax_url: https://github.com/zsh-users/zsh-syntax-highlighting.git
-  ansible.builtin.shell: git clone {{ zsh_syntax_url }} {{ zsh_syntax_res.stat.path }}
+  ansible.builtin.shell: git clone {{ zsh_syntax_url }} ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 - name: Check if powerlevel10k repo exists
   ansible.builtin.stat:
@@ -25,7 +25,7 @@
 - name: Install powerlevel10k
   when: not powerlevel10k_res.stat.exists
   ansible.builtin.command: 
-    cmd: git clone --depth=1 {{ dev_powerlevel10k_url }} {{ powerlevel10k_res.stat.path }}
+    cmd: git clone --depth=1 {{ dev_powerlevel10k_url }} ~/.oh-my-zsh/custom/themes/powerlevel10k
   changed_when: true
 
 - name: Prepare fonts directory
