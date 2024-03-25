@@ -1,0 +1,60 @@
+{
+    "files.insertFinalNewline": true,
+    "editor.minimap.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "gitlens.advanced.messages": {
+        "suppressGitMissingWarning": true
+    },
+    "workbench.editorAssociations": {
+        "*.db": "default"
+    },
+    "terminal.integrated.scrollback": 10000000000,
+    "editor.largeFileOptimizations": false,
+    "editor.maxTokenizationLineLength": 2000000,
+    "search.useIgnoreFiles": false,
+    "editor.fontFamily": "MesloLGS NF",
+    "settingsSync.ignoredExtensions": [
+        "pkief.material-icon-theme"
+    ],
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "redhat.telemetry.enabled": false,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "workbench.editor.enablePreview": true,
+    "editor.tabSize": 2,
+    "diffEditor.useInlineViewWhenSpaceIsLimited": false,
+    "files.associations": {
+        "**/ansible/**/*.yml": "ansible",
+        "**/build/**/*.yml": "ansible",
+        "**/lab/**/bas*.yml": "ansible",
+        "**/roles/**/*.yml": "ansible",
+    },
+    "[ansible]": {
+        "editor.detectIndentation": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.quickSuggestions": {
+            "comments": true,
+            "other": true,
+            "strings": true
+        },
+        "editor.autoIndent": "advanced"
+    },
+    "files.exclude": {
+        "**/node_modules": true,
+        "**/venv": true
+    },
+    "workbench.editor.pinnedTabsOnSeparateRow": true,
+
+    // "workbench.colorCustomizations": {
+    //     "statusBar.background" : "#f2e30e",
+    //     "statusBar"
+    //     "statusBar.noFolderBackground" : "#212121",
+    //     "statusBar.debuggingBackground": "#263238"
+    // }
+}
