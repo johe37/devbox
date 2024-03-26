@@ -4,16 +4,14 @@
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
-    "gitlens.advanced.messages": {
-        "suppressGitMissingWarning": true
-    },
-    "workbench.editorAssociations": {
-        "*.db": "default"
-    },
     "terminal.integrated.scrollback": 10000000000,
     "editor.largeFileOptimizations": false,
     "editor.maxTokenizationLineLength": 2000000,
     "search.useIgnoreFiles": false,
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/venv": true,
+    },
     "editor.fontFamily": "MesloLGS NF",
     "settingsSync.ignoredExtensions": [
         "pkief.material-icon-theme"
@@ -45,16 +43,5 @@
         },
         "editor.autoIndent": "advanced"
     },
-    "files.exclude": {
-        "**/node_modules": true,
-        "**/venv": true
-    },
     "workbench.editor.pinnedTabsOnSeparateRow": true,
-
-    // "workbench.colorCustomizations": {
-    //     "statusBar.background" : "#f2e30e",
-    //     "statusBar"
-    //     "statusBar.noFolderBackground" : "#212121",
-    //     "statusBar.debuggingBackground": "#263238"
-    // }
 }
