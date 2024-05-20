@@ -30,3 +30,17 @@ Dessutom om man vill få Powerlevel10k riktigt läkert så behöver man:
 
 Gör din Linux Workstation coolare med https://www.youtube.com/watch?v=7JJmCAJs9pM.
 Kräver GNOME >=43.
+
+## Bygg container
+
+```
+docker build -t devbox:0.1.0 .
+```
+
+Knuff:
+
+```
+docker login
+docker push containers/hellnet.se/devbox:0.1.0
+```
+

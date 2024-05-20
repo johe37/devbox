@@ -33,5 +33,5 @@ dev_git_config:
   - key: core.editor
     value: vim
 
-dev_git_config_user: ~
-dev_git_config_email: ~
+# dev_git_config_user: ~
+# dev_git_config_email: ~
