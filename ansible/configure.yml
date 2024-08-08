@@ -26,13 +26,6 @@
         apply:
           tags: vim
 
-    - name: Include tasks/configure-tmux.yml
-      tags: tmux
-      ansible.builtin.include_tasks:
-        file: tasks/configure-tmux.yml
-        apply:
-          tags: tmux
-
     - name: Include tasks/configure-ssh.yml
       tags: ssh
       ansible.builtin.include_tasks:

@@ -53,13 +53,18 @@
 
 - name: Create config file {{ dev_shell_config_file }}
   ansible.builtin.template:
-    src: conf.j2
+    src: conf.sh.j2
     dest: "{{ dev_shell_config_file }}"
 
 - name: Create config file {{ dev_shell_config_functions }}
   ansible.builtin.template:
     src: functions.sh.j2
     dest: "{{ dev_shell_config_functions }}"
+
+- name: Create config file ~/.tmux
+  template:
+    src: tmux.conf.j2
+    dest: ~/.tmux.conf
 
 - name: Set default shell
   become: true
