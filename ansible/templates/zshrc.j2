@@ -1,11 +1,6 @@
 # Include {{ dev_shell_config_folder }}/* user settings
 for file in {{ dev_shell_config_folder }}/* ; do source "$file" ; done
 
-# Get tmux from the get go!
-#if [[ $- == *i* ]] && [[ -z "$TMUX" ]] && [[ -n "$SSH_CONNECTION" ]]; then
-#  tmux attach-session -t -MAIN- || tmux new-session -s -MAIN-
-#fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 # If you come from bash you might have to change your $PATH.
