@@ -15,7 +15,7 @@ dev_packages:
   - fzf
 
 dev_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
-dev_shell_config_folder: ~/.config/{{ dev_user }}
+dev_shell_config_folder: ~/.config/shell.d
 dev_shell_config_file: "{{ dev_shell_config_folder }}/conf.sh"
 dev_shell_config_functions: "{{ dev_shell_config_folder }}/functions.sh"
 dev_oh_my_zsh_theme: powerlevel10k/powerlevel10k
