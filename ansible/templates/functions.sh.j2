@@ -1,22 +1,24 @@
 goto() {
-  # Directory where your repositories are located
-  local REPO_DIR="$HOME/repos"
 
-  # Use fzf to select a directory
-  local selected_dir=$(find "$REPO_DIR" -maxdepth 1 -type d | fzf --height 40%)
+    if [[ $# -eq 1 ]]; then
+        selected_dir=$1
+    else
+        selected_dir=$(find "$HOME" "$HOME/repos" -mindepth 1 -maxdepth 1 -type d | fzf)
+    fi
 
-  # If no directory is selected, exit the function
-  [ -z "$selected_dir" ] && return
+    if [[ -z $selected_dir ]]; then
+        exit 0
+    fi
 
-  # Extract the directory name to use as the tmux session name
-  local session_name=$(basename "$selected_dir")
+    # Extract the directory name to use as the tmux session name
+    local session_name=$(basename "$selected_dir")
 
-  # Check if the session already exists
-  if ! tmux has-session -t "$session_name" 2>/dev/null; then
-      # If session doesn't exist, create a new session
-      tmux new-session -s "$session_name" -c "$selected_dir"
-  else
-      # If session exists, attach to it
-      tmux attach-session -t "$session_name"
-  fi
+    # Check if the session already exists
+    if ! tmux has-session -t "$session_name" 2>/dev/null; then
+        # If session doesn't exist, create a new session
+        tmux new-session -s "$session_name" -c "$selected_dir"
+    else
+        # If session exists, attach to it
+        tmux attach-session -t "$session_name"
+    fi
 }
