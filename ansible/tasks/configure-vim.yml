@@ -3,14 +3,4 @@
   ansible.builtin.template:
     src: vimrc.j2
     dest: ~/.vimrc
-
-- name: Create folders for nvim
-  ansible.builtin.file:
-    path: ~/.config/nvim
-    state: directory
-
-- name: Create config file ~/.config/nvim/init.lua
-  ansible.builtin.template:
-    src: init.lua.j2
-    dest: ~/.config/nvim/init.lua.j2
 ...
