@@ -51,11 +51,6 @@
     path: "{{ dev_shell_config_folder }}"
     state: directory
 
-- name: Create config file {{ dev_shell_config_file }}
-  ansible.builtin.template:
-    src: conf.sh.j2
-    dest: "{{ dev_shell_config_file }}"
-
 - name: Create scripts folder {{ dev_shell_scripts_folder }}
   ansible.builtin.file:
     path: "{{ dev_shell_scripts_folder }}"
