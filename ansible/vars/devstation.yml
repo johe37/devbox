@@ -18,6 +18,9 @@ dev_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }
 dev_shell_config_folder: ~/.config/shell.d
 dev_shell_config_file: "{{ dev_shell_config_folder }}/conf.sh"
 dev_shell_scripts_folder: ~/.local/share/scripts
+dev_shell_scripts:
+  - filename: goto
+    content: "{{ lookup('file', 'goto') }}"
 dev_oh_my_zsh_theme: powerlevel10k/powerlevel10k
 dev_powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
 dev_powerlevel_10k_fonts:
