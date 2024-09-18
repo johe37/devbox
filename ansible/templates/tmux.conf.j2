@@ -9,6 +9,8 @@ setw -g mode-keys vi
 unbind r
 bind r source-file ~/.tmux.conf \; display "Reloading config..."
 bind-key m set -g mouse \; display "Toggle mouse..."
+bind -T copy-mode-vi v send -X begin-selection # rebind v instead of space when highlighting text when in vi mode
+bind -T copy-mode-vi y send -X copy-selection-and-cancel # rebind y instead of enter when copying text in vi mode
 
 # STYLE
 # Set the base style for the status bar
