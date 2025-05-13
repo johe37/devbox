@@ -31,6 +31,5 @@ case "$1" in
 esac
 
 python3 -m venv $venv
-source $venv/bin/activate
-python -m pip install -U pip
-pip install ansible
+$venv/bin/python -m pip install -U pip
+$venv/bin/pip install ansible
