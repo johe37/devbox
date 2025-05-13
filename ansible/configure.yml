@@ -1,10 +1,8 @@
 ---
 - name: Configure devstation
   hosts: localhost
-  connection: local
   vars_files:
     - vars/devstation.yml
-    - vars/scripts.yml
   tasks:
     - name: Include tasks/install-packages.yml
       tags: packages

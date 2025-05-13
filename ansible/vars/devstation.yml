@@ -1,4 +1,5 @@
 dev_user: "{{ lookup('env', 'USER') }}"
+
 dev_packages:
   - vim
   - git
@@ -20,7 +21,9 @@ dev_shell_scripts_folder: ~/.local/share/scripts
 dev_shell_scripts:
   - filename: goto
     content: "{{ lookup('file', 'goto') }}"
+
 dev_oh_my_zsh_theme: powerlevel10k/powerlevel10k
+
 dev_powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
 dev_powerlevel_10k_fonts:
   - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
@@ -37,6 +40,5 @@ dev_git_config:
     value: "{{ dev_git_config_email | default(dev_user + '@example.com') }}"
   - key: core.editor
     value: vim
-
 # dev_git_config_user: ~
 # dev_git_config_email: ~
