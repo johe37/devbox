@@ -19,7 +19,7 @@ case "$1" in
     ;;
   redhat)
     sudo dnf groupinstall -y "Development tools"
-    sudo dnf install -y "$python_version" "gcc-c++"
+    sudo dnf install -y "$python_version" "gcc-c++" "python3-libdnf5"
     ;;
   debian)
     sudo apt install -y "$python_version" "$python_version-venv"

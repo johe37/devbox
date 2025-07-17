@@ -8,6 +8,14 @@
   loop: "{{ dev_packages }}"
 
 - name: Install packages
+  when: ansible_os_family == 'RedHat'
+  become: true
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ dev_packages }}"
+
+- name: Install packages
   when: ansible_os_family == 'Darwin'
   community.general.homebrew:
     name: "{{ item }}"
