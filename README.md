@@ -7,7 +7,7 @@ Innan du kör scripten nedan kan du kolla igenom `ansible/vars/devstation.yml` o
 du vill ändra några variabler.
 
 ```shell
-./install-ansible <os>
+./init.bash <os>
 
 source venv/bin/activate
 
