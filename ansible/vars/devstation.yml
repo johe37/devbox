@@ -17,7 +17,7 @@ dev_packages:
 
 dev_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
 dev_shell_config_folder: ~/.config/shell.d
-dev_shell_scripts_folder: ~/.local/share/scripts
+dev_shell_scripts_folder: $HOME/.local/share/scripts
 dev_shell_scripts:
   - filename: goto
     content: "{{ lookup('file', 'goto') }}"
