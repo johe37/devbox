@@ -18,8 +18,8 @@ case "$1" in
     arch | grep "arm64" && eval "$(/opt/homebrew/bin/brew shellenv)" && echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> ~/.zshrc
     ;;
   redhat)
-    sudo dnf groupinstall -y "Development tools"
-    sudo dnf install -y "$python_version" "gcc-c++" "python3-libdnf5"
+    sudo dnf group install development-tools -y
+    sudo dnf install -y "$python_version" "$python_version-devel" "$python_version-libdnf5" "$python_version-dnf" "gcc-c++" "libffi-devel" "pkgconf-pkg-config"
     ;;
   debian)
     sudo apt install -y "$python_version" "$python_version-venv"

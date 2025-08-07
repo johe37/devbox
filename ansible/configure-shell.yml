@@ -1,0 +1,91 @@
+---
+- name: Configure shell
+  hosts: localhost
+  vars:
+    dev_user: "{{ lookup('env', 'USER') }}"
+    dev_shell: "{{ '/bin/zsh' if ansible_os_family == 'Darwin' else '/usr/bin/zsh' }}"
+    dev_oh_my_zsh_theme: powerlevel10k/powerlevel10k
+    dev_shell_config_folder: ~/.config/zshrc.d
+    dev_shell_scripts_folder: ~/.local/share/scripts
+    dev_shell_scripts:
+      - filename: goto
+        content: "{{ lookup('file', 'scripts/goto') }}"
+  tasks:
+    - name: Set default shell
+      become: true
+      ansible.builtin.user:
+        name: "{{ dev_user }}"
+        shell: "{{ dev_shell }}"
+
+    - name: Check if zsh-syntax-highlightning repo exists
+      ansible.builtin.stat:
+        path: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+      register: zsh_syntax_res
+
+    - name: Install zsh-syntax-highlightning
+      when: not zsh_syntax_res.stat.exists
+      vars:
+        zsh_syntax_url: https://github.com/zsh-users/zsh-syntax-highlighting.git
+      ansible.builtin.shell: git clone {{ zsh_syntax_url }} ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+    - name: Check if powerlevel10k repo exists
+      ansible.builtin.stat:
+        path: ~/.oh-my-zsh/custom/themes/powerlevel10k
+      register: powerlevel10k_res
+
+    - name: Install powerlevel10k
+      when: not powerlevel10k_res.stat.exists
+      vars:
+        dev_powerlevel10k_url: https://github.com/romkatv/powerlevel10k.git
+      ansible.builtin.command: 
+        cmd: git clone --depth=1 {{ dev_powerlevel10k_url }} ~/.oh-my-zsh/custom/themes/powerlevel10k
+      changed_when: true
+
+    - name: Prepare fonts directory
+      ansible.builtin.file:
+        path: ~/.local/share/fonts
+        state: directory
+        
+    - name: Download fonts
+      ansible.builtin.get_url:
+        url: "{{ item }}"
+        dest: ~/.local/share/fonts
+        mode: '0644'
+      loop:
+        - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+        - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+        - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+        - https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+
+    - name: Create config file ~/.zshrc
+      ansible.builtin.template:
+        src: zshrc.j2
+        dest: ~/.zshrc
+
+    - name: Create folder {{ dev_shell_config_folder }}
+      ansible.builtin.file:
+        path: "{{ dev_shell_config_folder }}"
+        state: directory
+
+    - name: Create scripts folder {{ dev_shell_scripts_folder }}
+      ansible.builtin.file:
+        path: "{{ dev_shell_scripts_folder }}"
+        state: directory
+
+    - name: Create scripts
+      vars:
+          _dest: "{{ dev_shell_scripts_folder }}/{{ item.filename }}"
+      ansible.builtin.copy:
+        dest: "{{ _dest }}"
+        mode: '0700'
+        content: "{{ item.content }}"
+      loop: "{{ dev_shell_scripts }}"
+      loop_control:
+        label: "{{ _dest }}"
+
+    - name: Create config file ~/.tmux
+      ansible.builtin.copy:
+        dest: ~/.tmux.conf
+        content: "{{ lookup('file', 'tmux.conf') }}"
+        mode: '0600'
+...

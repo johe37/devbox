@@ -1,0 +1,22 @@
+---
+- name: Configure GIT
+  hosts: localhost
+  tasks:
+    - name: Create GIT config file
+      ansible.builtin.copy:
+        dest: ~/.gitconfig
+        content: "{{ lookup('file', 'gitconfig') }}"
+        mode: '0600'
+
+    - name: Create LazyGit config folder
+      ansible.builtin.file:
+        path: ~/.config/lazygit
+        state: directory
+        mode: '0755'
+
+    - name: Create LazyGit config file
+      ansible.builtin.copy:
+        dest: ~/.config/lazygit/config.yml
+        content: "{{ lookup('file', 'lazygit-config.yml') }}" 
+        mode: '0600'
+...

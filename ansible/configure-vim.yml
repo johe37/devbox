@@ -1,0 +1,9 @@
+---
+- name: Configure vim
+  hosts: localhost
+  tasks:
+    - name: Create config file ~/.vimrc
+      ansible.builtin.copy:
+        dest: ~/.vimrc
+        content: "{{ lookup('file', 'vimrc') }}"
+...

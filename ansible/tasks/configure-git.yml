@@ -1,8 +1,0 @@
----
-- name: Configure git globally
-  ansible.builtin.command:
-    cmd: git config --global {{ item.key }} {{ item.value }}
-  loop: "{{ dev_git_config }}"
-  loop_control:
-    label: git config --global {{ item.key }} {{ item.value }}
-...

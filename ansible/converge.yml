@@ -1,0 +1,9 @@
+---
+- import_playbook: install-packages.yml
+
+- import_playbook: configure-shell.yml
+
+- import_playbook: configure-git.yml
+
+- import_playbook: configure-vim.yml
+...

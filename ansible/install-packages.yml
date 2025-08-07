@@ -1,0 +1,82 @@
+---
+- name: Install packages
+  hosts: localhost
+  vars:
+    dev_packages:
+      - vim
+      - git
+      - zsh
+      - tmux
+      - jq
+      - yq
+      - nmap
+      - curl
+      - make
+      - htop
+      - ripgrep
+      - unzip
+      - gpg
+      - fzf
+      - neovim
+      - git-delta
+  tasks:
+
+    - name: Install packages (Debian)
+      when: ansible_os_family == 'Debian'
+      block:
+
+        - name: Install packages (Debian)
+          become: true
+          ansible.builtin.package:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ dev_packages }}"
+
+    - name: Install packages (RedHat)
+      when: ansible_os_family == 'RedHat'
+      block:
+
+        - name: Install packages (RedHat)
+          become: true
+          ansible.builtin.package:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ dev_packages }}"
+
+        - name: Enable COPR repository for LazyGit
+          become: true
+          ansible.builtin.command:
+            cmd: dnf copr enable dejan/lazygit -y
+          changed_when: true
+
+        - name: Install LazyGit
+          become: true
+          ansible.builtin.dnf:
+            name: lazygit
+            state: present
+
+    - name: Install packages (Darwin)
+      when: ansible_os_family == 'Darwin'
+      block:
+
+        - name: Install packages (Darwin)
+          community.general.homebrew:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ dev_packages }}"
+          register: result
+          until: result is successful
+
+        - name: Install LazyGit
+          community.general.homebrew:
+            name: lazygit
+            state: present
+
+    - name: Install oh-my-zsh
+      vars:
+        omz_url: https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+      ansible.builtin.shell: |
+        curl -fsSL {{ omz_url }} | sh -s -- --unattended
+      args:
+        creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
+...
